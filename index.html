@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <button type="button">night</button>
+        <button type="button">light</button>
+        <button type="button">favorites</button>
+        <button type="button">screensaver</button>
+        <button type="button">▶</button>
+        <button type="button">community</button>
+        
+        <a href="Note1.html"><iframe src="Note1.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note2.html"><iframe src="Note2.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note3.html"><iframe src="Note3.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note4.html"><iframe src="Note4.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note5.html"><iframe src="Note5.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note6.html"><iframe src="Note6.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note7.html"><iframe src="Note7.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note8.html"><iframe src="Note8.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note9.html"><iframe src="Note9.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note10.html"><iframe src="Note10.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note11.html"><iframe src="Note11.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note12.html"><iframe src="Note12.html" width="400vw" height="200vh"></iframe></a>
+        <a href="Note13.html"><iframe src="Note13.html" width="400vw" height="200vh"></iframe></a>
+
+        <!-- hi -->
+        <div class="bar">
+            <div class="message"><marquee scrollamount="20">I AM NOT RECORDING YOU BUT YOU ARE BEING RECORDED</marquee></div>
+            <p id="intro">This is a collection of X notes from my notes app</p>
+            <button id="randomize">↳↰</button>
+        </div>
+
+        <script>
+        //Make the DIV element draggagle:
+        dragElement(document.getElementsByClassName("draggable"));
+
+        function dragElement(elmnt) {
+        var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+        var header = elmnt.getElementsByClassName('draggableHead')[0];
+        if (header) {
+                header.onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+        function dragMouseDown(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // get the mouse cursor position at startup:
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            document.onmouseup = closeDragElement;
+            // call a function whenever the cursor moves:
+            document.onmousemove = elementDrag;
+            // bring the dragged element to the front
+            var allDraggable = document.getElementsByClassName('draggable');
+            for (var i = 0; i < allDraggable.length; i++) {
+                    allDraggable[i].style.zIndex = "9";
+                }
+                elmnt.style.zIndex = "10";
+        }
+
+        function elementDrag(e) {
+            e = e || window.event;
+            e.preventDefault();
+            // calculate the new cursor position:
+            pos1 = pos3 - e.clientX;
+            pos2 = pos4 - e.clientY;
+            pos3 = e.clientX;
+            pos4 = e.clientY;
+            // set the element's new position:
+            elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+            elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+        }
+
+        function closeDragElement() {
+            /* stop moving when mouse button is released:*/
+            document.onmouseup = null;
+            document.onmousemove = null;
+        }
+        }
+        </script>
+
+        <!-- <script>
+            function hideNoteHead() {
+            var iframe = document.getElementsByClassName("note");
+            var elmnt = iframe.contentWindow.document.getElementsByTagName("notehead")[0];
+            elmnt.style.display = "none";
+            }
+        </script> -->
+    </body>
+</html>
