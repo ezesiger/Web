@@ -35,7 +35,8 @@ a:hover{
 }
 
 /*Index page styling*/
-.bar{
+@media only screen and (max-width: 600px) {
+  .bar{
     position: fixed;
     bottom: 0;
     height: 10vh;
@@ -45,7 +46,23 @@ a:hover{
     justify-content: space-between;
     border-style: groove;
     background-color: white;
+    }
 }
+@media only screen and (min-width: 600px) {
+  .bar{
+    position: fixed;
+    bottom: 0;
+    height: 10vh;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    border-style: groove;
+    background-color: white;
+    align-items: center;
+    }
+}
+
 .message {
     padding: 2vh;
     text-align: center;
@@ -54,14 +71,15 @@ a:hover{
 #intro {
     float: left;
     text-align: left;
-    width: 70%;
-    font-size: 2vh;
+    font-size: 1.2vw;
     margin-left: 4%;
+    margin-right: 2%;
 }
 #randomize {
     float: right;
     margin-right: 1%;
     width: 10vw;
+    height:80%;
 }
 
 .draggable {
