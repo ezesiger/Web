@@ -38,6 +38,7 @@ a:hover{
 .bar{
     position: fixed;
     bottom: 0;
+    height: 10vh;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
@@ -46,8 +47,9 @@ a:hover{
     background-color: white;
 }
 .message {
+    padding: 1vh;
     text-align: center;
-    font-size: 2em;    
+    font-size: 6vh;    
 }
 #intro {
     float: left;
@@ -60,20 +62,49 @@ a:hover{
     float: right;
     margin-right: 4%;
 }
-iframe {
-    box-shadow: 3px;
-    border-style: ridge;
-}
+
 .draggable {
-    position: absolute;
-    border: 1px solid #d3d3d3;
-    overflow: hidden;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    position: relative;
+    width: 100%;
+    height: 100%;
 }
 
-.draggableHead {
-    cursor: move;
-    background-color: green;
+.frame {
+      position: absolute;
+      width: 40vh;
+      height: 20vh;
+      overflow: hidden;
+      background: white;
+      transform: translate(0, 0); /* >>this will update */
+      touch-action: none; /* >>allow custom pan/drag */
+      border-color: black;
+      border: 2px;
+      border-style: ridge;
+      transition: transform 0.05s;
+    }
+
+.frame .head {
+      height: 36px;
+      background: rgb(255, 255, 255);
+      border: 1px;
+      border-style: ridge;
+      border-color: black;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 12px;
+      cursor: grab;
+      user-select: none;
+      font-size: 14px;
+    }
+.frame.dragging .head { cursor: grabbing; }
+
+.frame iframe {
+width: 100%;
+height: calc(100% - 36px);
+border: 0;
+display: block;
+background: #fff;
 }
 
 /* line-height: ;
