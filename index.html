@@ -180,7 +180,7 @@
     
     <div class="bar">
         <div class="message"><marquee scrollamount="20">I AM NOT RECORDING YOU BUT YOU ARE BEING RECORDED</marquee></div>
-        <p id="intro">This is a collection of X notes from my notes app</p>
+        <p id="intro">This is a collection of 24 notes from my notes app</p>
         <button id="randomize">↳↰</button>
     </div>
 
@@ -194,7 +194,7 @@
             
             // Calculate available space for frames
             const availableWidth = draggableRect.width - 300; // frame width
-            const availableHeight = windowHeight - 300; // frame height
+            const availableHeight = draggableRect.height +300; // frame height
             
             frames.forEach(frame => {
                 // Generate random positions within the available space
