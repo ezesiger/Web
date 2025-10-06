@@ -35,6 +35,7 @@ a:hover{
 }
 
 /*Index page styling*/
+/*Bottom bar for mobile*/
 @media only screen and (max-width: 600px) {
   .bar{
     position: fixed;
@@ -47,12 +48,33 @@ a:hover{
     border-style: groove;
     background-color: white;
     }
+    .message {
+    padding: 2vh;
+    text-align: center;
+    font-size: 5vh;    
+    }
+    #intro {
+        float: left;
+        text-align: left;
+        font-size: 1vh;
+        margin-left: 4%;
+        margin-right: 2%;
+        margin-top: 1%;
+        margin-bottom: 1%;
+    }
+    #randomize {
+        float: right;
+        margin-right: 1%;
+        width: 10vw;
+        height:80%;
+    }
 }
+/* bottom bar for browser*/
 @media only screen and (min-width: 600px) {
   .bar{
     position: fixed;
     bottom: 0;
-    height: 10vh;
+    height: 12vh;
     width: 100%;
     display: flex;
     flex-wrap: nowrap;
@@ -61,25 +83,36 @@ a:hover{
     background-color: white;
     align-items: center;
     }
-}
-
-.message {
+    .message {
     padding: 2vh;
     text-align: center;
     font-size: 5vh;    
-}
-#intro {
-    float: left;
-    text-align: left;
-    font-size: 1.2vw;
-    margin-left: 4%;
-    margin-right: 2%;
-}
-#randomize {
-    float: right;
-    margin-right: 1%;
-    width: 10vw;
-    height:80%;
+    }
+    #intro {
+        float: left;
+        text-align: left;
+        font-size: 1.5vh;
+        margin-left: 4%;
+        margin-right: 2%;
+    }
+    #randomize {
+        float: right;
+        font-size: 3vw;
+        margin-right: 2%;
+        width: 12vh;
+        height:80%;
+    }
+    a {
+    color: black;
+    text-decoration: underline;
+    font-size: 1em;
+    }
+    a:hover{
+        color: darkgray;
+        text-decoration: none;
+        font-size: 1em;
+        transition: 1s;
+    }
 }
 
 .draggable {
