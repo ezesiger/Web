@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+
+    <title>Life is Full of Difficult Choices</title>
+    <style>
+        body {
+            background-color: #C50D04;
+        }
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin:auto;
+            margin-top: 5%;
+            width: 50%;
+            background-image: url(https://i.pinimg.com/1200x/5e/de/80/5ede808dd145bc896c89fffe974fb6f0.jpg);
+            background-size: cover;
+            height: 70vh;
+        }
+        #question-container {
+            font-family: "DM Sans", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: white;
+            
+        }
+        #question-text {
+            text-align: center;
+            background-color: rgba(200, 0, 0, 0.5);
+        }
+        #choices-container {
+            display: flex;
+            justify-content: space-around;
+        }
+        button {
+            background-color: #ddd;
+            width: 24.5vw;
+            border: 3px outset white;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;    
+            font-size: larger;
+            font-family: "DM Sans", sans-serif;
+
+        }
+        button:hover {
+            background-color: white;
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <div id="question-container">
+            <h2 id="question-text">Its 7:00PM on a friday night and you and your partner are sitting on the couch. You feel your stomach grumbling.</h2>
+            <div id="choices-container">
+                <button onclick="selectChoice('start')">"What do you want for dinner?"</button>
+            </div>
+        </div>
+
+        <div id="result-container" style="display:none;">
+            <h2 id="result-text"></h2>
+            <button onclick="restartGame()">Try Again</button>
+        </div>
+    </div>
+
+    <script>
+        let currentState = 'start';
+        let anger = false;
+        
+        function selectChoice(choice) {
+            if (choice === "Try again" || choice === "Next week") {
+            restartGame();
+            return; // Exit the function early
+            }
+
+            // Use determine next question based on current state and choice
+            if (currentState === 'start') {
+                displayQuestion(
+                    "'I don't know,' they respond, 'What kind of food do you feel like?'",
+                    ["Western food", "Non-Western food"]
+                );
+                currentState = 'intro';
+                anger = false;
+            }
+            else if (currentState === 'intro') {
+                if (choice === 'Western food') {
+                    displayQuestion(
+                        '"Hm. Interesting... What kind of Western food?"',
+                        ["Spanish", "Greek"]
+                    );
+                    currentState = 'western';
+                } else if (choice === 'Non-Western food') {
+                    displayQuestion(
+                        '"Yum! What kind of non-Western food?"',
+                        ["Sushi", "Dim Sum"]
+                    );
+                    currentState = 'nonwestern';
+                }
+            }
+            else if (currentState === 'western') {
+                if (choice === 'Spanish') {
+                    displayQuestion(
+                        '"I dont know. I dont really feel like Spanish food right now."',
+                        ["Seafood Boil", "Wendy's"]
+                    );
+                    currentState = 'spanish';
+                } else if (choice === 'Greek') {
+                    displayQuestion(
+                        '"Eh maybe not. I just had that for lunch today."',
+                        ["Wendy's", "Steak"]
+                    );
+                    currentState = 'greek';
+                }
+            }
+            else if (currentState === 'greek') {
+                if (choice === 'Steak') {
+                    displayQuestion(
+                        '"You know I dont eat red meat"',
+                        ["Wendy's", "German"]
+                    );
+                    currentState = 'steak';
+                    anger = true;
+                } else if (choice === "Wendy's" && anger == true) {
+                    displayQuestion(
+                        '"Seriously?"',
+                        ["Italian", "Olive Garden"]
+                    );
+                    currentState = 'wendys';
+                } else if (choice === "Wendy's" && anger == false) {
+                    displayQuestion(
+                        '"Seriously?"',
+                        ["German", "Italian"]
+                    );
+                    currentState = 'wendys';
+                }
+            }
+            else if (currentState === 'steak') {
+                if (choice === 'German') {
+                    displayQuestion(
+                        '"No thanks"',
+                        ["British food", "##*$(^@(%)?"]
+                    );
+                    currentState = 'german';
+                } else if (choice === "Wendy's" && anger == true) {
+                    displayQuestion(
+                        '"Seriously?"',
+                        ["Italian", "Olive Garden"]
+                    );
+                    currentState = 'wendys';
+                } else if (choice === "Wendy's" && anger == false) {
+                    displayQuestion(
+                        '"Seriously?"',
+                        ["German", "Italian"]
+                    );
+                    currentState = 'wendys';
+                }
+            }
+            else if (currentState === 'spanish') {
+                if (choice === 'Seafood Boil') {
+                    displayQuestion(
+                        '"Ooh I love seafood!"',
+                        ["Go to Seafood Boil"]
+                    );
+                    currentState = 'seafoodend';
+                } else if (choice === "Wendy's" && anger == true) {
+                    displayQuestion(
+                        '"Seriously?"',
+                        ["Italian", "Olive Garden"]
+                    );
+                    currentState = 'wendys';
+                } else if (choice === "Wendy's" && anger == false) {
+                    displayQuestion(
+                        '"Seriously?"',
+                        ["German", "Italian"]
+                    );
+                    currentState = 'wendys';
+                }
+            }
+            else if (currentState === 'wendys') {
+                if (choice === 'Italian') {
+                    displayQuestion(
+                        '"I love Italian food! Lets go!"',
+                        ["Go to restaurant"]
+                    );
+                    currentState = 'italian';
+                } else if (choice === 'Olive Garden') {
+                    displayQuestion(
+                        '"You never listen to me. I told you a million times I cant go to Olive Garden anymore because my sister and I have been fighting and she works there."',
+                        ["I'm sorry", "I forgot"]
+                    );
+                    currentState = 'olivegarden';
+                } else if (choice === 'German') {
+                    displayQuestion(
+                        '"No thanks"',
+                        ["British food", "##*$(^@(%)?"]
+                    );
+                    currentState = 'german';
+                }
+            }
+             else if (currentState === 'olivegarden') {
+                if (choice === "I'm sorry") {
+                    displayQuestion(
+                        "Your partner left you because they felt like you knew nothing about them. You die of a broken heart. Maybe you should make different choices next time.",
+                        ["Try again"]
+                    );
+                } else if (choice === "I forgot") {
+                    displayQuestion(
+                        "Your partner left you because they felt like you knew nothing about them. You die of a broken heart. Maybe you should make different choices next time.",
+                        ["Try again"]
+                    );
+                }
+            }
+            else if (currentState === 'italian') {
+                if (choice === 'Go to restaurant') {
+                    displayQuestion(
+                        "You looked at one of the waiters funny and now youre swimming with the fishes. Never mess with the mob. Maybe next time you should make better choices.",
+                        ["Try again"]
+                    );
+                }
+            }
+            else if (currentState === 'german') {
+                if (choice === 'British food') {
+                    displayQuestion(
+                        '"I dont even know what that is. Its getting late..."',
+                        ["Let's eat something here", "Let's have dessert for dinner"]
+                    );
+                    currentState = 'nonsense';
+                } else if (choice === '##*$(^@(%)?') {
+                    displayQuestion(
+                        '"I dont even know what that is. Its getting late..."',
+                        ["Let's eat something here", "Let's have dessert for dinner"]
+                    );
+                    currentState = 'nonsense';
+                }
+            }
+            else if (currentState === 'nonsense') {
+                if (choice === "Let's eat something here") {
+                    displayQuestion(
+                        "You go to the kitchen and share a single packet of instant ramen. It is very sad. Maybe next time you should make different choices.",
+                        ["Try again"]
+                    );
+                    currentState = 'ramen';
+                } else if (choice === "Let's have dessert for dinner") {
+                    displayQuestion(
+                        "You go to the ice cream parlor together. Your hunger overtakes you and you eat way too much ice cream. You die from lactose intolerance. Sometimes you can have too much of a good thing. Make better choices next time.",
+                        ["Try again"]
+                    );
+                    currentState = 'dessert';
+                }
+            }
+            else if (currentState === 'seafoodend') {
+                if (choice === 'Go to Seafood Boil') {
+                    displayQuestion(
+                        "You go to seafood boil and have a great time! But before you can even finish your meal, you choke on a fishbone and die. Maybe you should've made a different choice...",
+                        ["Try again"]
+                    );
+                }
+            }
+            else if (currentState === 'nonwestern') {
+                if (choice === 'Sushi') {
+                    displayQuestion(
+                        '"I have textural issues with sushi"',
+                        ["Korean BBQ", "Thai"]
+                    );
+                    currentState = 'sushi';
+                } else if (choice === 'Dim Sum') {
+                    displayQuestion(
+                        '"Yum! Okay!"',
+                        ["Go eat right away", "Spend an hour getting dressed up"]
+                    );
+                    currentState = 'dimsum';
+                }
+            }
+            else if (currentState === 'sushi') {
+                if (choice === 'Korean BBQ') {
+                    displayQuestion(
+                        '"You know I dont eat red meat..."',
+                        ["Vietnamese", "Indian"]
+                    );
+                    currentState = 'kbbq';
+                } else if (choice === 'Thai') {
+                    displayQuestion(
+                        '"Eh maybe not... I just had Thai food for lunch"',
+                        ["Indian", "Mexican"]
+                    );
+                    currentState = 'thai';
+                }
+            }
+            else if (currentState === 'dimsum') {
+                if (choice === 'Go eat right away') {
+                    displayQuestion(
+                        "You get to the Dim Sum restaurant but it is closed. Its 7:00 PM. Nowhere is serving Dim Sum right now. You go home and sleep without supper. Maybe you should have made different choices...",
+                        ["Try again"]
+                    );
+                    currentState = 'nosupper';
+                } else if (choice === 'Spend an hour getting dressed up') {
+                    displayQuestion(
+                        "You get to the Dim Sum restaurant but it is closed. Its 7:00 PM. Nowhere is serving Dim Sum right now. You go home and sleep without supper. Maybe you should have made different choices...",
+                        ["Try again"]
+                    );
+                    currentState = 'nosupper';
+                } 
+            }
+            else if (currentState === 'sushi') {
+                if (choice === 'Korean BBQ') {
+                    displayQuestion(
+                        '"You know I dont eat red meat..."',
+                        ["Vietnamese", "Indian"]
+                    );
+                    currentState = 'kbbq';
+                } else if (choice === 'Thai') {
+                    displayQuestion(
+                        '"Eh maybe not... I just had Thai food for lunch"',
+                        ["Indian", "Mexican"]
+                    );
+                    currentState = 'thai';
+                }
+            }
+            else if (currentState === 'kbbq') {
+                if (choice === 'Vietnamese') {
+                    displayQuestion(
+                        '"You never listen to me. I told you a million times me and my brother have been fighting. He works at the Vietnamese place and I dont want to see him."',
+                        ["I'm sorry", "I forgot"]
+                    );
+                    currentState = 'vietnamese';
+                } else if (choice === 'Indian') {
+                    displayQuestion(
+                        "You and your partner have a lovely dinner at your local Indian restaurant! Its delicious.",
+                        ["Next week"]
+                    );
+                    currentState = 'start';
+                }
+            }
+            else if (currentState === 'vietnamese') {
+                if (choice === "I'm sorry") {
+                    displayQuestion(
+                        "Your partner left you because they felt like you knew nothing about them. You die of a broken heart. Maybe you should make different choices next time.",
+                        ["Try again"]
+                    );
+                } else if (choice === "I forgot") {
+                    displayQuestion(
+                        "Your partner left you because they felt like you knew nothing about them. You die of a broken heart. Maybe you should make different choices next time.",
+                        ["Try again"]
+                    );
+                }
+            }
+            else if (currentState === 'thai') {
+                if (choice === 'Indian') {
+                    displayQuestion(
+                        "You and your partner have a lovely dinner at your local Indian restaurant! Its delicious.",
+                        ["Next week"]
+                    );
+                    currentState = 'indian';
+                } else if (choice === 'Mexican') {
+                    displayQuestion(
+                        '"I dont feel like Mexican"',
+                        ["Indian", "Ethiopian"]
+                    );
+                    currentState = 'mexican';
+                }
+            }
+            else if (currentState === 'mexican') {
+                if (choice === 'Indian') {
+                    displayQuestion(
+                        "You and your partner have a lovely dinner at your local Indian restaurant! Its delicious.",
+                        ["Next week"]
+                    );
+                    currentState = 'start';
+                } else if (choice === 'Ethiopian') {
+                    displayQuestion(
+                        '"The restaurant is too far from here."',
+                        ["Antarctic food", "##*$(^@(%)?"]
+                    );
+                    currentState = 'ethiopian';
+                }
+            }
+            else if (currentState === 'ethiopian') {
+                if (choice === 'Antarctic food') {
+                    displayQuestion(
+                        '"I dont even know what that is. Its getting late..."',
+                        ["Let's eat something here", "Let's have dessert for dinner"]
+                    );
+                    currentState = 'nonsense';
+                } else if (choice === '##*$(^@(%)?') {
+                    displayQuestion(
+                        '"I dont even know what that is. Its getting late..."',
+                        ["Let's eat something here", "Let's have dessert for dinner"]
+                    );
+                    currentState = 'nonsense';
+                }
+            }
+        }
+        
+        function displayQuestion(question, choices) {
+            document.getElementById('question-text').textContent = question;
+            
+            const choicesContainer = document.getElementById('choices-container');
+            choicesContainer.innerHTML = '';
+            
+            for (let i = 0; i < choices.length; i++) {
+                const button = document.createElement('button');
+                button.textContent = choices[i];
+                button.onclick = function() {
+                    selectChoice(choices[i]);
+                };
+                choicesContainer.appendChild(button);
+            }
+        }
+        
+        function showResult(result) {
+            document.getElementById('question-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            document.getElementById('result-text').textContent = result;
+        }
+        
+        function restartGame() {
+            currentState = 'start';
+            document.getElementById('question-container').style.display = 'block';
+            document.getElementById('result-container').style.display = 'none';
+            document.getElementById('question-text').textContent = 'Its 7:00PM on a friday night and you and your partner are sitting on the couch. You feel your stomach grumbling.';
+            document.getElementById('choices-container').innerHTML = '<button onclick="selectChoice(\'start\')">"What do you want for dinner?"</button>';
+        }
+    </script>
+</body>
+</html>
