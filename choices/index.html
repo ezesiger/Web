@@ -46,19 +46,16 @@
             justify-content: center;    
             font-size: larger;
             font-family: "DM Sans", sans-serif;
-
         }
         button:hover {
             background-color: white;
         }
-
-
     </style>
 </head>
 <body>
     <div class="game-container">
         <div id="question-container">
-            <h2 id="question-text">Its 7:00PM on a friday night and you and your partner are sitting on the couch. You feel your stomach grumbling.</h2>
+            <h2 id="question-text">Its 6:00PM on a Friday night and you and your partner are sitting on the couch. You feel your stomach grumbling.</h2>
             <div id="choices-container">
                 <button onclick="selectChoice('start')">"What do you want for dinner?"</button>
             </div>
@@ -272,7 +269,7 @@
                     currentState = 'sushi';
                 } else if (choice === 'Dim Sum') {
                     displayQuestion(
-                        '"Yum! Okay!"',
+                        '"Sounds good to me!"',
                         ["Go eat right away", "Spend an hour getting dressed up"]
                     );
                     currentState = 'dimsum';
@@ -296,13 +293,13 @@
             else if (currentState === 'dimsum') {
                 if (choice === 'Go eat right away') {
                     displayQuestion(
-                        "You get to the Dim Sum restaurant but it is closed. Its 7:00 PM. Nowhere is serving Dim Sum right now. You go home and sleep without supper. Maybe you should have made different choices...",
+                        "You get to the Dim Sum restaurant but it is closed. Its 6:30 PM. Nowhere is serving Dim Sum right now. You go home and sleep without supper. Maybe you should have made different choices...",
                         ["Try again"]
                     );
                     currentState = 'nosupper';
                 } else if (choice === 'Spend an hour getting dressed up') {
                     displayQuestion(
-                        "You get to the Dim Sum restaurant but it is closed. Its 7:00 PM. Nowhere is serving Dim Sum right now. You go home and sleep without supper. Maybe you should have made different choices...",
+                        "You get to the Dim Sum restaurant but it is closed. Its 7:30 PM. Nowhere is serving Dim Sum right now. You go home and sleep without supper. Maybe you should have made different choices...",
                         ["Try again"]
                     );
                     currentState = 'nosupper';
@@ -402,8 +399,10 @@
             document.getElementById('question-text').textContent = question;
             
             const choicesContainer = document.getElementById('choices-container');
+            //remove old choices
             choicesContainer.innerHTML = '';
             
+            //create choice buttons
             for (let i = 0; i < choices.length; i++) {
                 const button = document.createElement('button');
                 button.textContent = choices[i];
@@ -412,12 +411,6 @@
                 };
                 choicesContainer.appendChild(button);
             }
-        }
-        
-        function showResult(result) {
-            document.getElementById('question-container').style.display = 'none';
-            document.getElementById('result-container').style.display = 'block';
-            document.getElementById('result-text').textContent = result;
         }
         
         function restartGame() {
