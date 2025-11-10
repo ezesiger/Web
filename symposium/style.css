@@ -1,0 +1,47 @@
+.title{
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+    color: white;
+    background-color: black;
+}
+
+.title a {
+    color: white;
+    text-decoration: none;
+}
+
+.title a:hover {
+    color: #666666;
+    text-decoration: none;
+    transition: 0.3s;
+}
+.title img {
+    max-height: 60vh;
+}
+
+.grid-container {
+  display: grid;
+  grid: auto / auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.grid-container > div {
+  background-color: red;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 30px;
+  align-items: center;
+}
+.grid-container img {
+    width: 60%;
+    height: auto;
+}
+

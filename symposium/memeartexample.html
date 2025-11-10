@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="page.css">
+    <title>Ella Symposium</title>
+</head>
+<body>
+    <h1>Making Art Using the Visual Language of Memes</h1>
+    <div class="slideshow-container">
+
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+            <img src="img/AnuJakobson Derpina.jpg" style="width:100%">
+            <div class="text">Anu Jakobson - <i>Derpina</i></div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="img/BijijooCoconutCollector.jpg" style="width:100%">
+            <div class="text">Bijijoo - Coconut Collector</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="img/AnuJakobson Whimsical Chihuahua.png" style="width:100%">
+            <div class="text">Anu Jakobson - Whimsical Chihuahua</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="img/EvaandFrancoMattes Deep Fried Half Cat.avif" style="width:100%">
+            <div class="text">Eva and Franco Mattes - Deep Fried Half Cat</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="img/JuliaDeRuiter Return to Form and Return to Womb (installation).webp" style="width:100%">
+            <div class="text">Julia De Ruiter - Return to Form and Return to Womb (installation)</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="img/Nalani Tran Thank You God For My Health.png" style="width:100%">
+            <div class="text">Nalani Tran - Thank You God For My Health</div>
+        </div>
+
+        <div class="mySlides fade">
+            <img src="img/Taewon Ahn What happened to Hiro in the blue room.png" style="width:100%">
+            <div class="text">Taewon Ahn - What happened to Hiro in the blue room</div>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+        </div>
+        <br>
+
+        <!-- The dots/circles -->
+        <div style="text-align:center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        </div>
+
+
+    <div class="buttonbar">    
+        <a href="memeart.html">back</a>
+        <a href="menu.html">next</a>
+    </div>
+</body>
+<script>
+    let slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+    showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+    showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+    let dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+    }
+</script>
+</html>
