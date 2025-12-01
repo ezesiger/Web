@@ -1,39 +1,19 @@
-//declare point arrays
 let points = [];
 let textPoints = [];
-
-//horse cycle variables
 let horses = [];
+let crawl = [];
 let horsePoints = [];
+let currentCrawl = 0;
+let currentHorse = 0;
+let bumpX = 100;
+let bumpY = 80;
 let cycleSpeed = 0; 
 let lastHorseChange = 0;
 let currentHorseImage = null; 
 let autoCycle = false;
-let currentHorse = 0;
-
-//crawl variables
-let crawl = [];
-let currentCrawl = 0;
-
-//ride variables
-let ride = [];
-let rideWidth = 100;
-
-//text and image variables
 let caption;
-let title;
 let moto;
-let mount1;
-
-//position variables
-let bumpX = 100;
-let bumpY = 80;
-let mountY = 0;
-let targetY = 0;
-let mountSpeed = 0;
-let mountVisible = false;
-
-//countdown variables
+let title;
 let countdownStart = 0;
 let countdownActive = false;
 
@@ -51,13 +31,9 @@ function preload() {
   horses[9] = loadImage('assets/H10.png');
   horses[10] = loadImage('assets/H11.png');
   horses[11] = loadImage('assets/H12.png');
+  moto = loadImage('assets/M1.png');
   crawl[0] = loadImage('assets/Crawl1.png');
   crawl[1] = loadImage('assets/Crawl2.png');
-  for (let i = 0; i < 6; i++) {
-    ride[i] = loadImage(`assets/ride${i+1}.png`);
-  }
-  moto = loadImage('assets/M1.png');
-  mount1 = loadImage('assets/mount1.png');
 }
 
 function setup() {
@@ -70,7 +46,7 @@ function setup() {
 function draw() {
   background(0, 0, 255);
 
-  if (cycleSpeed <= 236 && cycleSpeed >= 165) {
+  if (cycleSpeed <= 116 && cycleSpeed >= 81) {
     // use moto points instead of cycling horses
     if (points.length === 0 || currentHorseImage !== moto) {
       points = generateMotoPoints();
@@ -86,14 +62,9 @@ function draw() {
   }
 
   drawTitle();
-  drawMount();
   drawPoints();
   drawCaption();
-  drawRide();
-  drawCrawlBorder();
   drawCrawl();
-  
-  
   updateGridVisibility();
 
   checkReset();
@@ -115,13 +86,13 @@ function drawTitle() {
     title = title8;
   } else if (cycleSpeed <=1 && cycleSpeed > 0) {
     title = " ";
-  } else if (cycleSpeed <= 14 && cycleSpeed > 0) {
+  } else if (cycleSpeed <= 10 && cycleSpeed > 0) {
     title = title7; 
-  } else if (cycleSpeed <=81 && cycleSpeed > 0) {
+  } else if (cycleSpeed <=40 && cycleSpeed > 0) {
     title = title6;
-  } else if (cycleSpeed <= 116 && cycleSpeed > 0) {
+  } else if (cycleSpeed <= 57 && cycleSpeed > 0) {
     title = title5; 
-  } else if (cycleSpeed <=337 && cycleSpeed > 0) {
+  } else if (cycleSpeed <=236 && cycleSpeed > 0) {
     title = title4;
   } else if (cycleSpeed <= 686 && cycleSpeed > 0) {
     title = title3; 
@@ -156,8 +127,8 @@ function drawCaption() {
   let caption0 = "click horse 2 optimize";
   let caption1 = "again";
   let caption2 = "faster";
-  let caption3 = "faster horses, faster computers";
-  let caption4 = "i am the workhorse, i am the machine";
+  let caption3 = "faster horses faster computers";
+  let caption4 = "step forwards";
   let caption5 = "optimize your life";
   let caption6 = "you can never be fast enough";
   let caption7 = "you will never be fast enough";
@@ -166,14 +137,12 @@ function drawCaption() {
   if (cycleSpeed <= 1 && cycleSpeed > 0) {
     caption = " ";
   } else if (cycleSpeed <= 1.3 && cycleSpeed > 0) {
-    caption = caption7;
-  } else if (cycleSpeed <= 1.7 && cycleSpeed > 0) {
     caption = caption6;
   } else if (cycleSpeed <= 5 && cycleSpeed > 0) {
     caption = caption5;
-  } else if (cycleSpeed <= 57 && cycleSpeed > 0) {
+  } else if (cycleSpeed <= 14 && cycleSpeed > 0) {
     caption = caption4;
-  } else if (cycleSpeed <= 481 && cycleSpeed > 0) {
+  } else if (cycleSpeed <= 337 && cycleSpeed > 0) {
     caption = caption3;
   } else if (cycleSpeed <= 980 && cycleSpeed > 0) {
     caption = caption2;
@@ -188,129 +157,13 @@ function drawCaption() {
   textFont('Arial');
   textSize(18);
   text(caption, windowWidth/1.5, windowHeight-20);
-  // text(cycleSpeed, 20, 20);
+  text(cycleSpeed, 20, 20);
 }
 
 function drawCrawl() {
   //time drawing of crawling woman
   if (cycleSpeed <= 4 && cycleSpeed > 1) {
-    image(crawl[currentCrawl], 30, 13, 350, 170);
-  }
-}
-
-function drawCrawlBorder() {
-  if (cycleSpeed <= 4 && cycleSpeed > 1) {
-    let crawlX = 30;
-    let crawlY = 13;
-    let crawlWidth = 345;
-    let crawlHeight = 170;
-    
-    // Text settings
-    textFont('Arial');
-    textSize(12);
-    fill(255);
-    noStroke();
-    
-    // Text to repeat
-    let borderText = "click me ";
-    
-    // Calculate how many times the text fits around the border
-    let textWidthVal = textWidth(borderText);
-    let topBottomRepeats = ceil(crawlWidth / textWidthVal);
-    let sideRepeats = ceil(crawlHeight / textWidthVal);
-    
-    // Draw top border
-    for (let i = 0; i < topBottomRepeats; i++) {
-      text(borderText, crawlX + i * textWidthVal, crawlY - 5);
-    }
-    
-    // Draw bottom border
-    for (let i = 0; i < topBottomRepeats; i++) {
-      text(borderText, crawlX + i * textWidthVal, crawlY + crawlHeight + 15);
-    }
-    
-    // Draw left border (rotated)
-    push();
-    translate(crawlX - 10, crawlY);
-    rotate(HALF_PI);
-    for (let i = 0; i < sideRepeats; i++) {
-      text(borderText, i * textWidthVal, 0);
-    }
-    pop();
-    
-    // Draw right border (rotated)
-    push();
-    translate(crawlX + crawlWidth + 15, crawlY);
-    rotate(HALF_PI);
-    for (let i = 0; i < sideRepeats; i++) {
-      text(borderText, i * textWidthVal, 0);
-    }
-    pop();
-  }
-}
-
-function drawRide() {
-  if (cycleSpeed > 1 && cycleSpeed < 10) {
-    let imagesToShow = ceil(width / rideWidth);
-    let baseY = 50;
-    
-    for (let i = 0; i < imagesToShow; i++) {
-      let imgIndex = i % 6;
-      let baseX = i * rideWidth;
-      
-      let centerX = baseX + rideWidth / 2;
-      let centerY = baseY + rideWidth / 2;
-      
-      // Calculate vertical distance only
-      let verticalDistance = abs(mouseY - centerY);
-      
-      let maxShift = 80;
-      let verticalInfluenceRadius = 150; // How close mouse needs to be vertically
-      
-      let shiftY = 0;
-      if (verticalDistance < verticalInfluenceRadius) {
-        // Only consider horizontal distance for shift intensity
-        let horizontalDistance = abs(mouseX - centerX);
-        let horizontalInfluenceRadius = 300;
-        
-        if (horizontalDistance < horizontalInfluenceRadius) {
-          let normalizedHorizontal = 1 - (horizontalDistance / horizontalInfluenceRadius);
-          let normalizedVertical = 1 - (verticalDistance / verticalInfluenceRadius);
-          
-          // Combine both influences (vertical proximity enables, horizontal controls intensity)
-          let shiftIntensity = normalizedHorizontal * normalizedVertical;
-          shiftY = -maxShift * shiftIntensity * shiftIntensity; // Shift upward with easing
-        }
-      }
-      
-      image(ride[imgIndex], baseX, baseY + shiftY, rideWidth, rideWidth);
-    }
-  }
-}
-
-function drawMount() {
-  if (cycleSpeed > 14 && cycleSpeed < 40) {
-    // Calculate target position based on cycle speed
-    if (cycleSpeed < 20) {
-      targetY = height-mount1.height; // Bottom of screen
-    } else if (cycleSpeed < 28) {
-      targetY = height / 2; // Middle of screen
-    } else {
-      targetY = height/3.5; // Above the horse (off-screen top)
-    }
-    
-      // Smooth movement using easing
-      mountSpeed = (targetY - mountY) * 0.3; // Adjust 0.1 for speed of movement
-      mountY += mountSpeed;
-    
-    // Draw the image
-    let mountX = (width - mount1.width) - (bumpX*2.5); // align horizontally
-    image(mount1, mountX, mountY);
-    
-  } else {
-    // Reset position when not visible
-    mountY = -mount1.height;
-    targetY = -mount1.height;
+    image(crawl[currentCrawl], 10, 10, 350, 170);
   }
 }
 
@@ -457,7 +310,7 @@ function increaseSpeed() {
 //time reveal of photogrid based on cycle speed
 function updateGridVisibility() {
   if (gridIframe && gridIframe.parentElement) {
-    if (cycleSpeed > 1 && cycleSpeed <= 81) {
+    if (cycleSpeed > 1 && cycleSpeed <= 28) {
       gridIframe.parentElement.style.display = 'block';
     } else {
       gridIframe.parentElement.style.display = 'none';
